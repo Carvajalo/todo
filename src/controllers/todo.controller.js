@@ -75,7 +75,7 @@ export const updateTodoById = async (req, res) => {
   try {
     const { name, description, completed } = req.body;
     const todoFound = await todo.findById(req.params.id);
-    if(!todoFound) return res.status(204).json({
+    if(!todoFound) return res.status(404).json({
       message: `Todo with id: ${req.params.id} does not exists`
     });
     await todo.updateOne({ _id: req.params.id }, {
