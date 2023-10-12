@@ -26,12 +26,12 @@ export const createTodo = async (req, res) => {
 
   try {
     const newTodo = new todo({
-      title: req.body.title,
+      name: req.body.name,
       description: req.body.description,
     })
 
     const todoSaved = await newTodo.save();
-    res.status(201).json(todoSaved);
+    res.status(202).json(todoSaved);
   } catch (error) {
     res.status(404).json({
       message: error.message || 'Something goes wrong creating a todo'
@@ -59,13 +59,14 @@ export const createFiveTodos = async (req, res) => {
 export const getTodoById = async (req, res) => {
   try {
     const todoFound = await todo.findById(req.params.id);
-    if(!todoFound) return res.status(204).json({
+    console.log(todoFound)
+    if(!todoFound) return res.status(404).json({
       message: `Todo with id: ${req.params.id} does not exists`
     });
     res.status(202).json(todoFound);
   } catch (error) {
     res.status(404).json({
-      message: error.message || 'Something goes wrong retrieving the todo'
+      message: 'Something goes wrong retrieving the todo'
     })
   }
 }
